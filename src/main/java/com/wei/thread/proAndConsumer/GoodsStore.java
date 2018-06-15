@@ -10,45 +10,43 @@ public class GoodsStore {
 	private List<String> list = Collections.synchronizedList(new ArrayList<String>());
 	
 	/**
-	 * Éú²ú·½·¨
+	 * ç”Ÿäº§
 	 */
 	public synchronized void produce(){
-		System.out.println(Thread.currentThread().getName()+"¿ªÊ¼Éú²ú...");
-		//Èç¹ûµ±Ç°ÊıÁ¿´óÓÚ×î´ó¿â´æÔòµÈ´ı
-		while(list.size() > MAX_SIZE){
+		System.out.println(Thread.currentThread().getName()+"å¼€å§‹ç”Ÿäº§...");
+		//å½“è¶…è¿‡æœ€å¤§å®¹é‡ï¼Œåˆ™ç­‰å¾…
+		if(list.size() > MAX_SIZE){
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		//·ñÔòÕı³£Éú²ú
+		//å¦åˆ™å¼€å§‹ç”Ÿäº§
 		list.add("xx");
-		System.out.println(Thread.currentThread().getName()+"Éú²ú½áÊø£¬²Ö¿âÖĞÊ£Óà£º"+list.size());
-		//»½ĞÑËùÓĞµÈ´ıµÄÏß³Ì
+		System.out.println(Thread.currentThread().getName()+"ç”Ÿäº§å®Œæˆï¼Œå½“å‰å®¹é‡æ˜¯ï¼š"+list.size());
+		//å”¤é†’ç­‰å¾…ä¸­çš„æ¶ˆè´¹è€…çº¿ç¨‹å¼€å§‹æ¶ˆè´¹
 		notifyAll();
 		
 		
 	}
 	/**
-	 * Ïû·Ñ·½·¨
+	 * æ¶ˆè´¹
 	 */
 	public synchronized void consumer(){
-		System.out.println(Thread.currentThread().getName()+"¿ªÊ¼Ïû·Ñ...");
-		//Èç¹û¿â´æÎª0ÔòµÈ´ı
-		while(list.size() == 0){
+		System.out.println(Thread.currentThread().getName()+"å¼€å§‹æ¶ˆè´¹...");
+		//å½“å®¹é‡ä¸ºç©ºæ—¶ï¼Œåœæ­¢æ¶ˆè´¹
+		if(list.size() == 0){
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		//·ñÔò¿ªÊ¼Ïû·Ñ
+		//å¦åˆ™å¼€å§‹æ¶ˆè´¹
 		list.remove(list.size()-1);
-		System.out.println(Thread.currentThread().getName()+"Ïû·Ñ½áÊø£¬²Ö¿âÖĞÊ£Óà£º"+list.size());
-		//»½ĞÑËùÓĞµÈ´ıµÄÏß³Ì
+		System.out.println(Thread.currentThread().getName()+"æ¶ˆè´¹å®Œæˆï¼Œå½“å‰å®¹é‡ä¸ºï¼š"+list.size());
+		//å”¤é†’ç­‰å¾…çš„ç”Ÿäº§è€…çº¿ç¨‹å¼€å§‹ç”Ÿäº§
 		notifyAll();
 				
 		

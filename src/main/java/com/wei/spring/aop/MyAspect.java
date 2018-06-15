@@ -14,11 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.wei.spring.mvc.RequestMappingController;
-
 /**
- * ¶¨ÒåÒ»Ð©À¹½ØÆ÷
- * pointCutµÄÓï·¨¹æÔòÎª£º
+ * ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * pointCutï¿½ï¿½ï¿½ï·¨ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½
  * execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern) throws-pattern?)
  * @author Administrator
  *
@@ -29,13 +27,13 @@ public class MyAspect {
 
 	private static Logger log = LoggerFactory.getLogger(MyAspect.class);
 	/**
-	 * À¹½ØËùÓÐµÄ ·½·¨Ãû³ÆÒÔinsert¿ªÍ·µÄ·½·¨
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½insertï¿½ï¿½Í·ï¿½Ä·ï¿½ï¿½ï¿½
 	 */
 	@Pointcut("execution(* com.wei.spring.mvc..*.insert*(..))")
 	public void insertMethod(){}
 	
 	/**
-	 * À¹½ØÆÕÍ¨µÄbean
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½bean
 	 */
 	@Pointcut("execution(* com.wei.spring..*.*(..))")
 	public void normalMethod(){}
@@ -43,54 +41,54 @@ public class MyAspect {
 	
 	@Before("insertMethod()")
 	public void printMessage1(JoinPoint jp){
-		//»ñÈ¡·½·¨ÓÐÓÃµÄÐÅÏ¢
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ï¢
 		Signature sig = jp.getSignature();
 		String msg = sig.toString();// String com.wei.spring.mvc.AopController.insertService2(String,Integer)
 		//String declaringTypeName = sig.getDeclaringTypeName();// com.wei.spring.mvc.AopController
 		String methodName = sig.getName();
-		//»ñÈ¡»ñÈ¡²ÎÊýÁÐ±í
-		Object[] args = jp.getArgs();//ÓÐ¸öÂÑÓÃ£¬ÎÞ·¨ÖªµÀÈ·ÇÐµÄÀàÐÍ
-		//»ñÈ¡±»À¹½ØµÄ¶ÔÏó
+		//ï¿½ï¿½È¡ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+		Object[] args = jp.getArgs();//ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½Þ·ï¿½Öªï¿½ï¿½È·ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ØµÄ¶ï¿½ï¿½ï¿½
 		Object obj = jp.getTarget();//AopController
-		Object obj2 = jp.getThis();//AopControllerµÄ´úÀí
+		Object obj2 = jp.getThis();//AopControllerï¿½Ä´ï¿½ï¿½ï¿½
 		
-		log.info("ÎÒÊÇ Before ÎÒÊ²Ã´Ò²Ã»×ö");
+		log.info("ï¿½ï¿½ï¿½ï¿½ Before ï¿½ï¿½Ê²Ã´Ò²Ã»ï¿½ï¿½");
 	}
 	
 //	@Before("execution(* com.wei.spring..*.*(..))")
 //	public void printMessage2(){
-//		System.out.println("ÎÒÊôÓÚµÚ¶þÖÖpointCut");
+//		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÚ¶ï¿½ï¿½ï¿½pointCut");
 //	}
 	
 	@AfterThrowing(pointcut="execution(* com.wei.spring.mvc..*.insert*(..))",throwing="ex")
 	public void testAfterThrowing(Exception ex){
-		log.info("ÎÒÊÇ AfterThrowing ²¢ÇÒÒì³£Îª£º"+ex.getMessage());
+		log.info("ï¿½ï¿½ï¿½ï¿½ AfterThrowing ï¿½ï¿½ï¿½ï¿½ï¿½ì³£Îªï¿½ï¿½"+ex.getMessage());
 	}
 	
 	/**
-	 * ¼òµ¥Æ¥ÅäµÄ @AfterReturning
+	 * ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ @AfterReturning
 	 * @param jp
 	 * @param ret
 	 */
 	@AfterReturning(pointcut="execution(* com.wei.spring.mvc..*.insert*(..))",returning="ret")
 	public void testAfterReturning(JoinPoint jp,Object ret){
-		//»ñÈ¡·½·¨ÓÐÓÃµÄÐÅÏ¢
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ï¢
 		Signature sig = jp.getSignature();
 		String msg = sig.toString();// String com.wei.spring.mvc.AopController.insertService2(String,Integer)
 		//String declaringTypeName = sig.getDeclaringTypeName();// com.wei.spring.mvc.AopController
 		String methodName = sig.getName();
-		//»ñÈ¡»ñÈ¡²ÎÊýÁÐ±í
-		Object[] args = jp.getArgs();//ÓÐ¸öÂÑÓÃ£¬ÎÞ·¨ÖªµÀÈ·ÇÐµÄÀàÐÍ
-		//»ñÈ¡±»À¹½ØµÄ¶ÔÏó
+		//ï¿½ï¿½È¡ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+		Object[] args = jp.getArgs();//ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½Þ·ï¿½Öªï¿½ï¿½È·ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ØµÄ¶ï¿½ï¿½ï¿½
 		Object obj = jp.getTarget();//AopController
-		Object obj2 = jp.getThis();//AopControllerµÄ´úÀí
+		Object obj2 = jp.getThis();//AopControllerï¿½Ä´ï¿½ï¿½ï¿½
 		
-		log.info("ÎÒÊÇ AfterReturning ²¢ÇÒÖ´ÐÐ½á¹ûÎª£º"+ret.toString()+"  ¸Ã·½·¨Îª£º"+msg);
+		log.info("ï¿½ï¿½ï¿½ï¿½ AfterReturning ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½ï¿½ï¿½Îªï¿½ï¿½"+ret.toString()+"  ï¿½Ã·ï¿½ï¿½ï¿½Îªï¿½ï¿½"+msg);
 	}
 	
 	/**
-	 * ¾«È·Æ¥ÅäµÄ @AfterReturning
-	 * args ²ÎÊýµÄ×÷ÓÃÓÐÁ½¸ö£º1£º¾«È·Æ¥Åä£¬2£º´«µÝ²ÎÊý¸øadvice
+	 * ï¿½ï¿½È·Æ¥ï¿½ï¿½ï¿½ @AfterReturning
+	 * args ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½È·Æ¥ï¿½ä£¬2ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½advice
 	 * @param jp
 	 * @param ret
 	 * @param name
@@ -98,38 +96,38 @@ public class MyAspect {
 	 */
 	@AfterReturning(pointcut="execution(* com.wei.spring.mvc..*.insert*(..)) && args(name,age,..)",returning="ret")
 	public void testAfterReturning(JoinPoint jp,Object ret,String name,int age){
-		//»ñÈ¡·½·¨ÓÐÓÃµÄÐÅÏ¢
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ï¢
 		Signature sig = jp.getSignature();
 		String msg = sig.toString();// String com.wei.spring.mvc.AopController.insertService2(String,Integer)
 		//String declaringTypeName = sig.getDeclaringTypeName();// com.wei.spring.mvc.AopController
 		String methodName = sig.getName();
-		//»ñÈ¡»ñÈ¡²ÎÊýÁÐ±í
-		Object[] args = jp.getArgs();//ÓÐ¸öÂÑÓÃ£¬ÎÞ·¨ÖªµÀÈ·ÇÐµÄÀàÐÍ
-		//»ñÈ¡±»À¹½ØµÄ¶ÔÏó
+		//ï¿½ï¿½È¡ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+		Object[] args = jp.getArgs();//ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½Þ·ï¿½Öªï¿½ï¿½È·ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ØµÄ¶ï¿½ï¿½ï¿½
 		Object obj = jp.getTarget();//AopController
-		Object obj2 = jp.getThis();//AopControllerµÄ´úÀí
+		Object obj2 = jp.getThis();//AopControllerï¿½Ä´ï¿½ï¿½ï¿½
 		
-		log.info("ÎÒÊÇ AfterReturning¡¾»ñÈ¡²ÎÊý·½Ê½1¡¿ ²¢ÇÒÖ´ÐÐ½á¹ûÎª£º"+ret.toString()+"  ¸Ã·½·¨Îª£º"+methodName+"("+name+","+age+")");
+		log.info("ï¿½ï¿½ï¿½ï¿½ AfterReturningï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½ï¿½ï¿½Îªï¿½ï¿½"+ret.toString()+"  ï¿½Ã·ï¿½ï¿½ï¿½Îªï¿½ï¿½"+methodName+"("+name+","+age+")");
 	}
 	
 	
 	/**
 	 * after (finally)
-	 * ¸ÃadviceÖ´ÐÐÏÈÓÚ AfterReturning ºÍ AfterThrowing
+	 * ï¿½ï¿½adviceÖ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ AfterReturning ï¿½ï¿½ AfterThrowing
 	 * @param jp
 	 */
 	@After("execution(* com.wei.spring.mvc..*.insert*(..))")
 	public void testAfater(JoinPoint jp){
-		log.info("ÎÒÊÇ After ·½·¨µ½´Ë±íÊ¾³¹µ×Ö´ÐÐÍê³É£¡£¡£¡");
+		log.info("ï¿½ï¿½ï¿½ï¿½ After ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë±ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 	
 	
 	@Around("execution(* com.wei.spring.mvc..*.insert*(..))")
 	public Object testAround(ProceedingJoinPoint pjp) throws Throwable{
 		
-		log.info("ÎÒÊÇaroundµÄÇ°²½Öè");
+		log.info("ï¿½ï¿½ï¿½ï¿½aroundï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½");
 		Object ret = pjp.proceed();
-		log.info("ÎÒÊÇaroundµÄºó²½Öè");
+		log.info("ï¿½ï¿½ï¿½ï¿½aroundï¿½Äºï¿½ï¿½ï¿½");
 		return ret;
 	}
 }

@@ -1,5 +1,7 @@
 package com.wei.thread.test;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.wei.spring.bean.Person;
 import com.wei.thread.NotifyThread;
 import com.wei.thread.WaitThread;
@@ -18,5 +20,7 @@ public class WaitNotifyTest {
 		w2.start();
 		w3.start();
 		n.start();
+		
+		ConcurrentHashMap<String, String> map = new ConcurrentHashMap<String, String>();
 	}
 }

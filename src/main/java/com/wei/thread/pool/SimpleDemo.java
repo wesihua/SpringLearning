@@ -12,7 +12,13 @@ public class SimpleDemo {
 		}
 		@Override
 		public void run() {
-			System.out.println(Thread.currentThread().getName()+"£º¿ªÊ¼Ö´ÐÐ");
+			System.out.println(Thread.currentThread().getName()+"å¼€å§‹æ‰§è¡Œ");
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -22,16 +28,25 @@ public class SimpleDemo {
 	
 	public static void main(String[] args) {
 		SimpleDemo demo = new SimpleDemo();
-		ExecutorService pool = Executors.newFixedThreadPool(2);
-		pool.execute(demo.getThread("Ïß³Ì-1"));
-		pool.execute(demo.getThread("Ïß³Ì-2"));
-		pool.execute(demo.getThread("Ïß³Ì-3"));
-		//pool.execute(demo.getThread("Ïß³Ì-4"));
-		//pool.execute(demo.getThread("Ïß³Ì-5"));
+		//ExecutorService pool = Executors.newFixedThreadPool(2);
+		//ExecutorService pool = Executors.newSingleThreadExecutor();
+		ExecutorService pool = Executors.newCachedThreadPool();
+		pool.execute(demo.getThread("çº¿ç¨‹1"));
+		pool.execute(demo.getThread("çº¿ç¨‹2"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.execute(demo.getThread("çº¿ç¨‹3"));
+		pool.submit(demo.getThread("æµ‹è¯•"));
+		//pool.execute(demo.getThread("çº¿ç¨‹4"));
+		//pool.execute(demo.getThread("çº¿ç¨‹5"));
 		
-		//Ïß³ÌÖ»»áÖ´ÐÐÒ»´Î
-		pool.shutdownNow();
-		//Ïß³ÌÖ´ÐÐµÄ´ÎÊýÎªÌí¼ÓµÄÏß³Ì×ÜÊý
-		//pool.shutdown();
+		//pool.shutdownNow();
+		pool.shutdown();
 	}
 }

@@ -18,10 +18,10 @@ public class MyInvocationHandler implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		Object obj = null;
-		System.out.println("¡·¡·¡·¡·¡·¡·¡·¡·ÎÒÊÇÔÚ·½·¨µ÷ÓÃÖ®Ç°Ö´ĞĞµÄ");
+		System.out.println("ä»£ç å¼€å§‹æ‰§è¡Œ...");
 		obj = method.invoke(dog, args);
-		System.out.println("Ö´ĞĞºóµÄ½á¹ûÊÇ£º"+obj);
-		System.out.println("¡¶¡¶¡¶¡¶¡¶¡¶¡¶¡¶ÎÒÊÇÔÚ·½·¨µ÷ÓÃÖ®ºóÖ´ĞĞµÄ");
+		System.out.println("è¿”å›ç»“æœæ˜¯ï¼š"+obj);
+		System.out.println("ä»£ç æ‰§è¡Œç»“æŸ...");
 		return obj;
 	}
 
@@ -37,7 +37,7 @@ public class MyInvocationHandler implements InvocationHandler {
 		IDog dog = new BlackDog();
 		
 		IDog d = (IDog) Proxy.newProxyInstance(dog.getClass().getClassLoader(), dog.getClass().getInterfaces(), new MyInvocationHandler(dog));
-		d.bark("ÌÆ³¤ÀÏ");
-		d.sayName("ÌÆ³¤ÀÏ");
+		d.bark("å¼ ä¸‰");
+		d.sayName("æˆ‘æ˜¯å¼ ä¸‰");
 	}
 }
